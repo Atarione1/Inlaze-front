@@ -15,8 +15,6 @@ export enum Order {
   Asc = 'ASC',
   Desc = 'DESC'
 }
-
-
 const Project = () => {
   const { data: session, status } = useSession();
   const [admin, setAdmin] = useState()
@@ -24,8 +22,6 @@ const Project = () => {
   const [user, setUser] = useState()
   const [params, setParams] = useState<Params>({ page: 1, take: 10 })
   const debounce = useDebounce(params, 1000)
-
-
   const handleChange = (event: any) => { const { value } = event.target; setParams((prevState) => ({ ...prevState, order: prevState.order === value ? undefined : value })); };
 
   useEffect(() => {
@@ -49,10 +45,7 @@ const Project = () => {
 
   return (
     <div className=" w-screen">
-
-      <div className="flex w-full md:w-[400px] mx-auto flex-col gap-y-1 gap-x-2">
-
-
+      <div className="flex w-full md:w-[400px] mx-auto flex-col gap-y-1 gap-x-2 my-2">
         <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -79,7 +72,7 @@ const Project = () => {
         {project.map((pro: any, i) => (
           <div key={i} className=" mx-auto sm:mx-0" >
 
-            <div className=" max-w-[26rem] min-w-[250px] whitespace-normal break-words rounded-lg border border-blue-gray-50 bg-white p-4 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none"
+            <div className=" max-w-[300px] md:max-w-[26rem] min-w-[250px] mx-auto whitespace-normal break-words rounded-lg border border-blue-gray-50 bg-white p-4 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none"
             >
               <div className="mb-2 flex items-center gap-3">
                 <a
@@ -149,8 +142,6 @@ const Project = () => {
                 </div>
               </div>
             </div>
-
-
           </div>
         ))}
 
