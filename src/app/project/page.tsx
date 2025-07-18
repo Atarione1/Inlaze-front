@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState, useEffect, ChangeEvent } from "react";
-import { getAdmin, getProjects, getUserr } from "../api/services/service";
+import { getAdmin, getProjects, getUserr, getUsers } from "../api/services/service";
 import Link from "next/link";
 import { useDebounce } from "@/hooks/debounce-hook";
 
@@ -20,6 +20,7 @@ const Project = () => {
   const [admin, setAdmin] = useState()
   const [project, setProject] = useState<[]>([])
   const [user, setUser] = useState()
+  const [users, setUsers] = useState()
   const [params, setParams] = useState<Params>({ page: 1, take: 10 })
   const debounce = useDebounce(params, 1000)
   const handleChange = (event: any) => { const { value } = event.target; setParams((prevState) => ({ ...prevState, order: prevState.order === value ? undefined : value })); };
@@ -37,9 +38,11 @@ const Project = () => {
     const addmin = await getAdmin(session)
     const projects = await getProjects(session, params)
     const userr = await getUserr(session)
+    const users = await getUsers(session)
     setAdmin(addmin)
     setProject(projects)
     setUser(userr)
+    setUsers(users)
     console.log(addmin)
   }
 
@@ -65,7 +68,7 @@ const Project = () => {
       {admin ? (
         <div className="flex mx-auto md:mx-[15%] my-10 justify-center md:justify-end" >
           <Link href={"/project/new"}>
-            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Crear Proyecto</button>
+            <button className="text-white bg-[#edb80c] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Crear Proyecto</button>
           </Link>
         </div>) : (<></>)}{ }
       <div className="container grid-cols-1 sm:grid-cols-2 grid md:grid-cols-3 w-screen  mx-auto justify-center gap-y-5 ">
@@ -91,7 +94,7 @@ const Project = () => {
               <p className="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased my-5">
                 {pro.description}
               </p>
-              <Link href={`/project/${pro.id}?user=${user?.id}`} className='inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+              <Link href={`/project/${pro.id}?user=${user?.id}`} className='inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#edb80c] rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
                 Detalle
                 <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />

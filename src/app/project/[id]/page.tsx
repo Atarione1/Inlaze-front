@@ -104,7 +104,7 @@ const Project = ({ params }: Props) => {
         {admin ? (
           <div className="flex mx-16 my-3 justify-center" >
             <Link href={`/project/tasks/new?project=${params.id}&user=${newUser}`}>
-              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Crear Tarea</button>
+              <button className="text-white bg-[#edb80c] hover:bg-[#edb80c] focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Crear Tarea</button>
             </Link>
           </div>) : (<></>)}{ }
       </div>

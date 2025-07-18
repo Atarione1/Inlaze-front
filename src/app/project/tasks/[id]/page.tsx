@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { getAdmin, getProject, getUserr } from "@/app/api/services/service";
+import { getAdmin, getProject, getUserr, getUsers } from "@/app/api/services/service";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { deleteTask, getTask, getTasks } from "@/app/api/services/serviceTasks";
@@ -30,6 +30,7 @@ const Project = ({ params }: Props) => {
   const { data: session, status } = useSession();
   const [admin, setAdmin] = useState()
   const [user, setUser] = useState()
+  const [users, setUsers] = useState()
   const [coment, setComent] = useState<[]>([])
   const [project, setProject] = useState<Project>()
   const [tasks, setTasks] = useState<Task>()
@@ -54,7 +55,9 @@ const Project = ({ params }: Props) => {
     const addmin = await getAdmin(session)
     const project = await getProject(session, params?.id)
     const userr = await getUserr(session)
+    const users = await getUsers(session)
     setComent(coments)
+    setUsers(users)
     setAdmin(addmin)
     setProject(project)
     setUser(userr)
@@ -133,7 +136,7 @@ const Project = ({ params }: Props) => {
         <div className="flex mx-auto w-full my-10 justify-center" >
           <div>
             <Link href={`/project/tasks/${newTask}/edit`}>
-              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar Tarea
+              <button className="text-white bg-black  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar Tarea
 
               </button>
             </Link>
@@ -147,19 +150,19 @@ const Project = ({ params }: Props) => {
       <section className="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
         <div className="max-w-2xl mx-auto px-4">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion</h2>
+            <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comentarios</h2>
           </div>
           <form className="mb-6" onSubmit={SubmitComent}  >
             <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
               <label className="sr-only">Your comment</label>
               <textarea name="description"
                 className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                placeholder="Bueno bueno"
+                placeholder="Comentar..."
                 onChange={(event) => setDescription(event.target.value)}></textarea>
             </div>
             <button type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-              Post comment
+              className="text-white bg-[#edb80c]  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              Enviar comentario
             </button>
           </form>
           {coment?.map((com: Comments, i) => (
@@ -167,9 +170,16 @@ const Project = ({ params }: Props) => {
               <article className="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
                 <footer className="flex justify-between items-center mb-2">
                   <div className="flex items-center">
-                    <p className="text-sm text-gray-600 …">
-                      <span title="February 8th, 2022">{com.userId} </span>
-                    </p>
+                    {users?.map((user: any, i) => (
+                      <div key={i}>
+                        {user.id == com.userId ? <div>
+                          <p className="text-sm text-gray-600 …">
+                            <span title="February 8th, 2022">{user.name} </span>
+                          </p>
+                        </div> : <div></div>}
+                      </div>
+                    ))}
+
                   </div>
                   <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
                     className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
