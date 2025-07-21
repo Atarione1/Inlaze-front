@@ -1,12 +1,12 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Props, Task } from "../page";
 import { useSession } from "next-auth/react";
 import { getTask } from "@/app/api/services/serviceTasks";
 import { getUsers } from "@/app/api/services/service";
 
-const EditarProyect = ({ params }: Props) => {
+const EditarProyect = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [name, setName] = useState<string>("");
   const [users, setUsers] = useState<[]>([]);
@@ -15,6 +15,7 @@ const EditarProyect = ({ params }: Props) => {
   const [description, setDescription] = useState<string>("");
   const [task, setTask] = useState<Task>()
   const { data: session, status } = useSession();
+  const params = useParams();
 
   const router = useRouter();
 
@@ -28,7 +29,7 @@ const EditarProyect = ({ params }: Props) => {
     return <p>Loading...</p>;
   }
   async function getPage() {
-    const taskss = await getTask(session, params?.id)
+    const taskss = await getTask(session, params?.id as string)
     const userr = await getUsers(session)
     setName(taskss.name)
     setDescription(taskss.description)
@@ -53,7 +54,7 @@ const EditarProyect = ({ params }: Props) => {
           description,
           finishedAt: "2025-05-06T17:43:24.585Z",
           userId: parseInt(user, 10),
-          projectId:project
+          projectId: project
         }),
       }
     );
@@ -100,7 +101,7 @@ const EditarProyect = ({ params }: Props) => {
                 <select onChange={(event) => setUser(event.target.value)} name="user" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   {users.map((user: any, i) => (
                     <>
-                      <option  key={i} value={user.id}>{user.name} </option>
+                      <option key={i} value={user.id}>{user.name} </option>
                     </>
 
                   ))}

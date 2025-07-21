@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="../../public/icon.png" />
+        <link rel="icon" href="/icon.png" />
         <title>Tasks inlaze</title>
       </head>
       <body

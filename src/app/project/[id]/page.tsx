@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { getAdmin, getProject } from "@/app/api/services/service";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { getTasks, getTaskss, getUserTask } from "@/app/api/services/serviceTasks";
 
 export interface Props {
@@ -19,15 +19,16 @@ export interface Project {
   createdAt: string
 }
 
-const Project = ({ params }: Props) => {
+const Project = () => {
   const { data: session, status } = useSession();
   const [admin, setAdmin] = useState()
   const [user, setUser] = useState()
   const [project, setProject] = useState<Project>()
   const [tasks, setTasks] = useState<[]>([])
   const searchParams = useSearchParams()
+  const params = useParams();
   const newUser = searchParams.get('user')
-  const router = useRouter();
+
 
   useEffect(() => {
     if (session) { getPage() }
@@ -41,14 +42,14 @@ const Project = ({ params }: Props) => {
   }
   async function getPage() {
     const addmin = await getAdmin(session)
-    const project = await getProject(session, params?.id)
+    const project = await getProject(session, params?.id as string)
     const userr = await getUserTask(session, newUser)
     setAdmin(addmin)
     setProject(project)
     setUser(userr)
 
 
-    const taskss = await getTaskss(session, params?.id)
+    const taskss = await getTaskss(session, params?.id as string)
     setTasks(taskss)
 
   }
