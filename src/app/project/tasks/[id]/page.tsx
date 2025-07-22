@@ -120,7 +120,7 @@ const Project = () => {
 
 
     router.push(`/project/tasks/${params.id}?task=${tasks?.id}`);
-
+    window.location.reload();
   };
   return (
     <div className="w-screen">
