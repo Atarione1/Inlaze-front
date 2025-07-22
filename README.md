@@ -6,6 +6,8 @@ https://github.com/Atarione1/frontend
 -por cuestion de tiempo el punto de los comentarios y notificaciones no la alcanzo a hacer
 -trate de cubrir todos los puntos requeridos en la prueba
 
+## actualizar next 
+npm install next@latest
 
 ## Project setup
 
