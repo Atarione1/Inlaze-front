@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [name, setName] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const router = useRouter()
-
+  //funcion para verificacion de credenciales y logear el usuario
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrors([]);

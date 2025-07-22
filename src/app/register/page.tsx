@@ -11,7 +11,7 @@ const RegisterPage = () => {
   const [admin, setAdmin] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("123123");
   const router = useRouter();
-
+  // funcion para hacer la peticion de registro de usuario 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrors([]);

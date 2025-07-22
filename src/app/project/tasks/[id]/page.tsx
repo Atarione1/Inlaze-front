@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import { getAdmin, getProject, getUserr, getUsers } from "@/app/api/services/service";
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { deleteTask, getTask, getTasks } from "@/app/api/services/serviceTasks";
+import { deleteTask, getTask } from "@/app/api/services/serviceTasks";
 import { Project } from "../../[id]/page";
-import { comment } from "postcss";
 import { toast } from "react-toastify";
 
 export interface Props {
