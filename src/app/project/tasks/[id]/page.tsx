@@ -18,6 +18,7 @@ export interface Task {
   name: string
   description: string
   finishedAt: string
+  status: string
 }
 export interface Comments {
   id: number;
@@ -131,7 +132,9 @@ const Project = () => {
           {tasks?.description}
 
         </p>
-
+        <div className="text-md text-gray-600 pt-10">
+          <p className="mx-auto text-center">Estado: {tasks?.status} </p>
+        </div>
       </div>
 
       {admin ? (
@@ -175,7 +178,7 @@ const Project = () => {
                     {users?.map((user: any, i) => (
                       <div key={i}>
                         {user.id == com.userId ? <div>
-                          <p className="text-sm text-gray-600 …">
+                          <p className="text-sm text-gray-600 … font-bold">
                             <span title="February 8th, 2022">{user.name} </span>
                           </p>
                         </div> : <div></div>}
