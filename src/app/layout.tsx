@@ -4,6 +4,7 @@ import "./globals.css";
 import SessionAuthProvider from "@/context/SessionAuthProvider";
 import Navbar from "@/components/navbar";
 import img from "../../public/icon.png"
+import { ToastContainer } from "react-toastify";
 
 // Importación de fuentes y estilos globales
 const geistSans = Geist({
@@ -44,7 +45,7 @@ export default function RootLayout({
             {children}
           </SessionAuthProvider>
         </main>
-
+        <ToastContainer />
       </body>
     </html>
   );

@@ -2,6 +2,7 @@
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useState } from "react"
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([])
@@ -20,10 +21,11 @@ const LoginPage = () => {
     });
 
     if (responseNextAuth?.error) {
+      toast.error(responseNextAuth.error)
       setErrors(responseNextAuth.error.split(","));
       return;
     }
-
+    toast.success('Login exitoso ✅');
     router.push("/project")
   }
   return (

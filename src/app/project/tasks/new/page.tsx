@@ -4,6 +4,7 @@ import { getUsers } from "@/app/api/services/service";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const CreateProyect = () => {
   const [errors, setErrors] = useState<string[]>([]);
@@ -61,11 +62,12 @@ const CreateProyect = () => {
     const responseAPI = await res.json();
 
     if (!res.ok) {
+      toast.error(res.statusText)
       setErrors(responseAPI.message.split(","));
       return;
     }
 
-
+    toast.success('Proyecto creado ✅');
     router.push(`/project/${newproject}?user=${newUser}`);
 
   };
