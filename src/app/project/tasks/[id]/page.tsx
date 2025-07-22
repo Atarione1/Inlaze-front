@@ -82,6 +82,7 @@ const Project = () => {
   const handleSubmit = async () => {
 
     await deleteTask(session, newTask)
+    toast.success('tarea eliminada ✅');
     router.push(`/project/${params?.id}?user=${user?.id}`);
 
   };

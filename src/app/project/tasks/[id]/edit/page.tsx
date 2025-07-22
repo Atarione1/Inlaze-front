@@ -5,12 +5,20 @@ import { Props, Task } from "../page";
 import { useSession } from "next-auth/react";
 import { getTask } from "@/app/api/services/serviceTasks";
 import { getUsers } from "@/app/api/services/service";
+import { toast } from "react-toastify";
+
+export enum TaskStatus {
+  POR_HACER = "por hacer",
+  EN_PROGRESO = "en progreso",
+  COMPLETADA = "completado"
+}
 
 const EditarProyect = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [name, setName] = useState<string>("");
   const [users, setUsers] = useState<[]>([]);
   const [user, setUser] = useState<string>("");
+  const [statuss, setStatus] = useState<TaskStatus>();
   const [project, setProject] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [task, setTask] = useState<Task>()
@@ -54,16 +62,19 @@ const EditarProyect = () => {
           description,
           finishedAt: "2025-05-06T17:43:24.585Z",
           userId: parseInt(user, 10),
-          projectId: project
+          projectId: project,
+          status: statuss
         }),
       }
     );
     const responseAPI = await res.json();
 
     if (!res.ok) {
+      toast.error(res.statusText)
       setErrors(responseAPI.message.split(","));
       return;
     }
+    toast.success('Tarea editada ✅');
     router.push(`/project`);
   };
   return (
@@ -97,13 +108,25 @@ const EditarProyect = () => {
                   />
 
                 </div>
-                <label className="block text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                <label className="block text-sm font-medium text-gray-900 dark:text-white">Asignar tarea</label>
                 <select onChange={(event) => setUser(event.target.value)} name="user" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   {users.map((user: any, i) => (
 
                     <option key={i} value={user.id}>{user.name} </option>
 
 
+                  ))}
+                </select>
+                <label className="block text-sm font-medium text-gray-900 dark:text-white">Estado de la tarea</label>
+                <select
+                  onChange={(e) => setStatus(e.target.value as TaskStatus)}
+                  name="status"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  {Object.entries(TaskStatus).map(([key, value]) => (
+                    <option key={key} value={key}>
+                      {value}
+                    </option>
                   ))}
                 </select>
 
