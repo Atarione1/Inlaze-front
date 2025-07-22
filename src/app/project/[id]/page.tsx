@@ -96,9 +96,9 @@ const Project = () => {
                     {user?.map((user: any, i) => (
                       <div key={i}>
                         {user.id == pro.userId ? <div>
-                          <p className="text-sm text-gray-600 …">
-                            <div className=" ">Asignado a: {user.name} </div>
-                          </p>
+                          <div className="text-sm text-gray-600 …">
+                            <p className=" ">Asignado a: {user.name} </p>
+                          </div>
                         </div> : <div></div>}
                       </div>
                     ))}

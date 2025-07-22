@@ -124,15 +124,15 @@ const Project = () => {
   return (
     <div className="w-screen">
       <h1 className=" text-3xl md:text-5xl text-center mx-auto font-bold w-screen">{tasks?.name} </h1>
-      <div className=" w-screen mx-auto justify-center">
-        <div className=' w-[300px] md:w-screen h-20 justify-center mx-3 text-ellipsis text-center  md:mx-auto my-10'><pre>
-          <p className='text-center md:text-lg mb-3 font-normal text-gray-700 dark:text-gray-400 container text-ellipsis'>
-            {tasks?.description}
 
-          </p>
-        </pre>
-        </div>
+      <div className=' w-[300px] md:max-w-[800px] mx-auto md:w-screen h-20     my-10'>
+        <p className=' text-center md:text-lg mb-3 font-normal text-gray-700 dark:text-gray-400 container '>
+          {tasks?.description}
+
+        </p>
+
       </div>
+
       {admin ? (
         <div className="flex mx-auto w-full my-10 justify-center" >
           <div>
