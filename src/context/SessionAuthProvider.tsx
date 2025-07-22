@@ -3,11 +3,13 @@ import React from 'react'
 import { SessionProvider } from 'next-auth/react'
 
 
-interface Props{
+interface Props {
   children: React.ReactNode
 }
 
-const SessionAuthProvider = ({children}: Props) => {
+// Proveedor de contexto para manejar la autenticación de sesiones
+// Envuelve la aplicación con el proveedor de sesión de NextAuth
+const SessionAuthProvider = ({ children }: Props) => {
   return (
     <SessionProvider>{children}</SessionProvider>
   )

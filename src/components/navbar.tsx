@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import inlaze from "../assets/assets.png";
 
+// Barra de navegación con enlaces a diferentes secciones
+// Muestra opciones según el estado de sesión del usuario (iniciado o no)
+// Incluye estilos y diseño responsivo
 const Navbar = () => {
   const { data: session } = useSession();
   return (

@@ -1,19 +1,19 @@
 "use client";
 
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Project, Props } from "../page";
 import { getProject } from "@/app/api/services/service";
 import { useSession } from "next-auth/react";
 
-const EditarProyect = ({ params }: Props) => {
+const EditarProyect = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [project, setProject] = useState<Project>()
   const { data: session, status } = useSession();
-
+  const params = useParams();
   const router = useRouter();
 
   useEffect(() => {
@@ -26,9 +26,10 @@ const EditarProyect = ({ params }: Props) => {
     return <p>Loading...</p>;
   }
   async function getPage() {
-    const project = await getProject(session, params?.id)
-
+    const project = await getProject(session, params?.id as string)
+    setName(project?.name)
     setProject(project)
+    setDescription(project?.description)
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -91,7 +92,7 @@ const EditarProyect = ({ params }: Props) => {
                     name="description"
                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     onChange={(event) => setDescription(event.target.value)}
-                     />
+                  />
                 </div>
                 <button type="submit" className="w-full text-white bg-black hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Crear</button>
 

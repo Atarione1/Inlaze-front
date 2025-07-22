@@ -5,8 +5,8 @@ import { useState } from "react"
 
 const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([])
-  const [name, setName] = useState<string>()
-  const [password, setPassword] = useState<string>()
+  const [name, setName] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
   const router = useRouter()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
