@@ -1,12 +1,8 @@
-// Importación de NextAuth y el proveedor de credenciales
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Configuración de NextAuth para manejar la autenticación
 const handler = NextAuth({
-  // Define los proveedores de autenticación disponibles
   providers: [
-    // Proveedor de credenciales para manejar inicio de sesión personalizado
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -14,7 +10,6 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
 
       },
-      // Función authorize para validar las credenciales del usuario
       async authorize(credentials) {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
           {
@@ -35,7 +30,6 @@ const handler = NextAuth({
       }
     })
   ],
-  // Callbacks para manejar tokens JWT y sesiones
   callbacks: {
     async jwt({ token, user }) {
       return { ...token, ...user }
@@ -44,9 +38,7 @@ const handler = NextAuth({
       session.user = token
       return session
     },
-  }, 
-  // Página personalizada para inicio de sesión
-  pages: {
+  }, pages: {
     signIn: "/",
   },
 })
