@@ -97,7 +97,7 @@ const Project = () => {
                       <div key={i}>
                         {user.id == pro.userId ? <div>
                           <div className="text-sm text-gray-600 …">
-                            <p className=" ">Asignado a: {user.name} </p>
+                            <p className=" ">Estado: {pro.status} </p> <p className=" ">Asignado a: {user.name} </p>
                           </div>
                         </div> : <div></div>}
                       </div>

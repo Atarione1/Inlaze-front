@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const CreateProyect = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [name, setName] = useState<string>("");
-  const [user, setUser] = useState<string>("");
+  const [user, setUser] = useState<string>("1");
   const [users, setUsers] = useState<[]>([]);
   const [description, setDescription] = useState<string>("");
   const searchParams = useSearchParams()
@@ -51,6 +51,8 @@ const CreateProyect = () => {
           finishedAt: "2025-05-06T17:43:24.585Z",
           userId: parseInt(user, 10),
           projectId: parseInt(newproject, 10),
+          status: "POR_HACER"
+
 
         }),
       }
@@ -105,9 +107,9 @@ const CreateProyect = () => {
                 <label className="block text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
                 <select key={1} onChange={(event) => setUser(event.target.value)} name="user" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   {users.map((user: any, i) => (
-                    <>
-                      <option key={i} value={user.id}>{user.name} </option>
-                    </>
+
+                    <option key={i} value={user.id}>{user.name} </option>
+
 
                   ))}
                 </select>

@@ -57,13 +57,14 @@ const Project = () => {
     const project = await getProject(session, params?.id as string)
     const userr = await getUserr(session)
     const users = await getUsers(session)
+    getTASK()
     setComent(coments)
     setUsers(users)
     setAdmin(addmin)
     setProject(project)
     setUser(userr)
     SetUserId(userr.id)
-    getTASK()
+
   }
 
   async function getTASK() {
@@ -77,7 +78,7 @@ const Project = () => {
 
   };
   const getComents = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/comments/2`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/comments/${newTask}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
